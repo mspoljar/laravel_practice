@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Meal;
+use App\Ingredient;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,14 +42,16 @@ Route::get('/admin/posts/example', array('as'=>'admin.home', function()
 //Route::get('/contact','PostsController@contact');
 //Route::get('/post/{id}/{name}/{password}','PostsController@show_post');
 
-Route::get('/find',function(){
+Route::get('/meal/{id}/ingredient',function($id){
 
 
-    $meals=Meal::all();
+    $meal=Meal::find($id);
+    
+      foreach($meal->ingredients as $ingredient){
 
-    foreach($meals as $meal){
-        return $meal->id;
-    }
-
+        return $ingredient;
+        
+      }
+       
 
 });
