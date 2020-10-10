@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Meal;
 use App\Ingredient;
+use App\IngredientMeal;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,9 +50,19 @@ Route::get('/meal/{id}/ingredient',function($id){
     
       foreach($meal->ingredients as $ingredient){
 
-        return $ingredient;
+        return $ingredient->id;
         
       }
        
+
+});
+
+Route::get('/meal/recipe',function(){
+
+    $ingredient=IngredientMeal::find(1);
+
+    foreach($ingredient->meal_id as $meal){
+        return $ingredient->ingredient_id;
+    }
 
 });

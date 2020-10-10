@@ -13,9 +13,9 @@ class CreateTagsTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tags_translations', function (Blueprint $table) {
+        Schema::create('tag_translations', function (Blueprint $table) {
             $table->id();
-            $table->integer('tags_id');
+            $table->integer('tag_id');
             $table->string('locale');
             $table->string('name');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateTagsTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags_translations');
+        Schema::dropIfExists('tag_translations');
     }
 }

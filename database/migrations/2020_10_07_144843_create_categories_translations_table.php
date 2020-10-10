@@ -13,9 +13,9 @@ class CreateCategoriesTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_translations', function (Blueprint $table) {
+        Schema::create('category_translations', function (Blueprint $table) {
             $table->id();
-            $table->integer('categories_id');
+            $table->integer('category_id');
             $table->string('locale');
             $table->string('name');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateCategoriesTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories_translations');
+        Schema::dropIfExists('category_translations');
     }
 }

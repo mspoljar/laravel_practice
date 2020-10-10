@@ -13,9 +13,9 @@ class CreateIngredientsTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ingredients_translations', function (Blueprint $table) {
+        Schema::create('ingredient_translations', function (Blueprint $table) {
             $table->id();
-            $table->integer('ingredients_id');
+            $table->foreignId('ingredient_id');
             $table->string('locale');
             $table->string('name');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateIngredientsTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingredients_translations');
+        Schema::dropIfExists('ingredient_translations');
     }
 }

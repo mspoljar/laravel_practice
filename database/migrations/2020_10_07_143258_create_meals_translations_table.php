@@ -13,9 +13,9 @@ class CreateMealsTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('meals_translations', function (Blueprint $table) {
+        Schema::create('meal_translations', function (Blueprint $table) {
             $table->id();
-            $table->integer('meals_id');
+            $table->integer('meal_id');
             $table->string('locale');
             $table->string('name');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateMealsTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meals_translations');
+        Schema::dropIfExists('meal_translations');
     }
 }
