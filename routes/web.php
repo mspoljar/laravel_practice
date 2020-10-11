@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Meal;
-use App\Ingredient;
-use App\IngredientMeal;
+use App\Http\Controllers\MealController;
+use App\Http\Controllers\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,51 +18,10 @@ use App\IngredientMeal;
 Route::get('/', function () {
     return view('welcome');
 });
-/*
-Route::get('/about', function (){
-    //return view('about');
-    echo 'About';
-});
-Route::get('/contact', function(){
-    //return view('contact');
-    echo 'contact';
-});
-Route::get('/post/{id}',function($id){
-    return "This is post number " . $id;
-});
-Route::get('/admin/posts/example', array('as'=>'admin.home', function()
-{
 
-    $url = route('admin.home');
-    return "this url is " . $url;
+Route::get('/menu', [MealController::class, 'menu']);
+Route::get('/category', [CategoryController::class, 'index']);
 
-}));
-*/
-//Route::get('/post/{id}','PostsController@index');
-//Route::resource('posts', 'PostsController');
-//Route::get('/contact','PostsController@contact');
-//Route::get('/post/{id}/{name}/{password}','PostsController@show_post');
-
-Route::get('/meal/{id}/ingredient',function($id){
-
-
-    $meal=Meal::find($id);
-    
-      foreach($meal->ingredients as $ingredient){
-
-        return $ingredient->id;
-        
-      }
-       
-
-});
-
-Route::get('/meal/recipe',function(){
-
-    $ingredient=IngredientMeal::find(1);
-
-    foreach($ingredient->meal_id as $meal){
-        return $ingredient->ingredient_id;
-    }
-
-});
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
