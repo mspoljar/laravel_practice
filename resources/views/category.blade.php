@@ -1,5 +1,6 @@
 @foreach($categories as $category)
 
-<td>{{ $category->translate('en')->name }}</td>
+
+{{$category->name ?? optional($category->translate('hr'))->name}}
 <br>
-    @endforeach
+@endforeach

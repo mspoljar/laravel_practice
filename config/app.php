@@ -231,4 +231,9 @@ return [
 
     ],
 
+    'languages'=>[
+        'en'=>'English',
+        'hr'=>'Hrvatski'
+    ],
+
 ];
