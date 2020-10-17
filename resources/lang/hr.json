@@ -43,5 +43,18 @@
     "Add new meal":"Dodaj novo jelo",
     "Meal name for english version":"Naziv jela za englesku verziju",
     "Meal name for croatian version":"Naziv jela za hrvatsku verzija",
-    "Add meal":"Dodaj jelo"
+    "Add meal":"Dodaj jelo",
+    "Add new category":"Dodaj novu kategoriju",
+    "Meal name":"Naziv jela",
+    "Category name":"Naziv kategorije",
+    "Change category":"Promjeni kategoriju",
+    "Slug name":"Naziv sluga",
+    "Category name for english version":"Naziv kategorije za englesku verziju",
+    "Category name for croatian version":"Naziv kategorije za hrvatsku verziju",
+    "Add category":"Dodaj kategoriju",
+    "Slug name for english version":"Slug naziv za englesku verziju",
+    "Slug name for croatian version":"Slug naziv za hrvatsku verziju",
+    "Add new tag":"Dodaj novi tag",
+    "Tag name":"Naziv taga",
+    "Change tag":"Promjeni tag"
 }

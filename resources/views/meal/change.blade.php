@@ -1,6 +1,6 @@
 <form action="/menu/changed" method="post">
     @csrf
-    <label>Name
+    <label>{{__('Meal name')}}
 <input type="text" name="name" id="name" value={{$meal->name}}>
 </label>
 <div>

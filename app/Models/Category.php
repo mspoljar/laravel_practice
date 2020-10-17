@@ -13,6 +13,7 @@ class Category extends Model implements TranslatableContract
     use Translatable;
 
     public $translatedAttributes=['name','slug'];
+    
 
     public function categoryTranslation()
     {

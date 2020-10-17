@@ -31,10 +31,20 @@ Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/tag',[TagController::class, 'index']);
 Route::get('/session',[UserController::class, 'index']);
 Route::get('/meal/change/{id}',[MealController::class, 'change']);
-Route::post('/menu/changed',[MealController::class,'changed']);
+Route::post('/menu/changed',[MealController::class,'update']);
 Route::get('/meal/delete/{id}',[MealController::class, 'delete']);
 Route::get('/menu/new', [MealController::class, 'new']);
 Route::post('/menu/addnew', [MealController::class, 'addnew']);
+Route::get('/category/change/{id}',[CategoryController::class, 'change']);
+Route::post('/category/update',[CategoryController::class, 'update']);
+Route::get('/category/delete/{id}',[CategoryController::class, 'delete']);
+Route::get('/category/new',[CategoryController::class,'new']);
+Route::post('/category/addnew',[CategoryController::class, 'addnew']);
+Route::get('/tag/change/{id}', [TagController::class, 'change']);
+Route::post('/tag/update',[TagController::class, 'update']);
+Route::get('/tag/delete/{id}',[TagController::class, 'delete']);
+Route::get('/tag/new',[TagController::class, 'new']);
+Route::post('/tag/addnew',[TagController::class,'addnew']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

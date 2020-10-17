@@ -20,11 +20,11 @@ class MealController extends Controller
         return view('meal.change',['meal'=>$meal]);
     }
 
-    public function changed(Request $request){
+    public function update(Request $request){
         $lang=$request->session()->get('language');
         $meal=Meal::findorFail($_POST['id']);
         $meal->mealTranslation()->whereLocale($lang)->update(['name'=>$_POST['name']]);
-       return view('meal.changed');
+       return view('meal.updated');
     }
 
     public function delete($id){
