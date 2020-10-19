@@ -7,23 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 
-class Category extends Model implements TranslatableContract
+class Ingredient extends Model
 {
     use HasFactory;
     use Translatable;
-
-    public $translatedAttributes=['name','slug'];
-
     protected $fillable=['path'];
-    
 
-    public function categoryTranslation()
+    public $translatedAttributes=['name'];
+
+    public function ingredientTranslation()
     {
-        return $this->hasMany('App\Models\CategoryTranslation');
+        return $this->hasMany('App\Models\IngredientTranslation');
     }
 
-    public function meals()
-    {
-        return $this->hasMany('\App\Models\Meal');
-    }
+
 }

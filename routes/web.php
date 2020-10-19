@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\IngredientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,25 +27,32 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], f
     Route::get('/', [WelcomeController::class, 'index'])->name('welcome-locale');
 });
 
-Route::get('/menu', [MealController::class, 'menu']);
-Route::get('/category', [CategoryController::class, 'index']);
-Route::get('/tag',[TagController::class, 'index']);
-Route::get('/session',[UserController::class, 'index']);
-Route::get('/meal/change/{id}',[MealController::class, 'change']);
-Route::post('/menu/changed',[MealController::class,'update']);
-Route::get('/meal/delete/{id}',[MealController::class, 'delete']);
-Route::get('/menu/new', [MealController::class, 'new']);
-Route::post('/menu/addnew', [MealController::class, 'addnew']);
-Route::get('/category/change/{id}',[CategoryController::class, 'change']);
-Route::post('/category/update',[CategoryController::class, 'update']);
-Route::get('/category/delete/{id}',[CategoryController::class, 'delete']);
-Route::get('/category/new',[CategoryController::class,'new']);
-Route::post('/category/addnew',[CategoryController::class, 'addnew']);
-Route::get('/tag/change/{id}', [TagController::class, 'change']);
-Route::post('/tag/update',[TagController::class, 'update']);
-Route::get('/tag/delete/{id}',[TagController::class, 'delete']);
-Route::get('/tag/new',[TagController::class, 'new']);
-Route::post('/tag/addnew',[TagController::class,'addnew']);
+
+
+Route::group(['middleware'=>'web'],function(){
+    Route::get('/menu', [MealController::class, 'menu']);
+    Route::get('/category', [CategoryController::class, 'index']);
+    Route::get('/tag',[TagController::class, 'index']);
+    Route::get('/session',[UserController::class, 'index']);
+    Route::get('/meal/change/{id}',[MealController::class, 'change']);
+    Route::post('/menu/changed',[MealController::class,'update']);
+    Route::get('/meal/delete/{id}',[MealController::class, 'delete']);
+    Route::get('/menu/new', [MealController::class, 'new']);
+    Route::post('/menu/addnew', [MealController::class, 'addnew']);
+    Route::get('/category/change/{id}',[CategoryController::class, 'change']);
+    Route::post('/category/update',[CategoryController::class, 'update']);
+    Route::get('/category/delete/{id}',[CategoryController::class, 'delete']);
+    Route::get('/category/new',[CategoryController::class,'new']);
+    Route::post('/category/addnew',[CategoryController::class, 'addnew']);
+    Route::get('/tag/change/{id}', [TagController::class, 'change']);
+    Route::post('/tag/update',[TagController::class, 'update']);
+    Route::get('/tag/delete/{id}',[TagController::class, 'delete']);
+    Route::get('/tag/new',[TagController::class, 'new']);
+    Route::post('/tag/addnew',[TagController::class,'addnew']);
+    Route::get('/ingredient',[IngredientController::class, 'index']);
+    Route::get('/ingredient/change/{id}',[IngredientController::class, 'change']);
+    Route::post('/ingredient/update',[IngredientController::class,'update']);
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

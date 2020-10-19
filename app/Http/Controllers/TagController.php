@@ -25,7 +25,7 @@ class TagController extends Controller
             $lang=$request->session()->get('language');
             $tag=Tag::findorFail($_POST['id']);
             $tag->tagTranslation()->whereLocale($lang)->update(['name'=>$_POST['name'],'slug'=>$_POST['slug']]);
-            return $this->index();
+            return redirect('/tag');
     }
 
     public function delete($id)
@@ -33,7 +33,7 @@ class TagController extends Controller
         $tag=Tag::findorFail($id);
         $tag->tagTranslation()->delete();
         $tag->delete();
-        return $this->index();
+        return redirect('/tag');
     }
 
     public function new()
@@ -49,6 +49,6 @@ class TagController extends Controller
         $tag=Tag::findorFail($_POST['id']);
         $tag->tagTranslation()->create(['locale'=>'en','name'=>$_POST['enname'], 'slug'=>$_POST['enslug']]);
         $tag->tagTranslation()->create(['locale'=>'hr','name'=>$_POST['hrname'], 'slug'=>$_POST['hrslug']]);
-        return $this->index();
+        return redirect('/tag');
     }
 }

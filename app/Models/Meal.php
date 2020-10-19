@@ -15,9 +15,20 @@ class Meal extends Model implements TranslatableContract
     public $translatedAttributes=[
         'name'
     ];
+    protected $fillable=['path'];
 
     public function mealTranslation()
     {
         return $this->hasMany('App\Models\MealTranslation');
+    }
+
+    public function category()
+    {
+        return $this->hasOne('App\Models\Category');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag');
     }
 }

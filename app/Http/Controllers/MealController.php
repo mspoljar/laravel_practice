@@ -10,8 +10,9 @@ class MealController extends Controller
     //
     public function menu()
     {
-        $meals=Meal::all();
-        return view('menu',['menu'=>$meals]);
+        $meals = Meal::translatedIn(app()->getLocale())
+            ->paginate(5);
+        return view('menu',compact('meals'));
     }
 
     public function change($id){
@@ -24,14 +25,14 @@ class MealController extends Controller
         $lang=$request->session()->get('language');
         $meal=Meal::findorFail($_POST['id']);
         $meal->mealTranslation()->whereLocale($lang)->update(['name'=>$_POST['name']]);
-       return view('meal.updated');
+       return redirect('/menu');
     }
 
     public function delete($id){
         $meal=Meal::findorFail($id);
         $meal->mealTranslation()->delete();
         $meal->delete();
-        return view('meal.deleted');
+        return redirect('/menu');
     }
 
     public function new()
@@ -47,6 +48,6 @@ class MealController extends Controller
         $meal=Meal::findorFail($_POST['id']);
         $meal->mealTranslation()->create(['locale'=>'en','name'=>$_POST['enname']]);
         $meal->mealTranslation()->create(['locale'=>'hr','name'=>$_POST['hrname']]);
-        return $this->menu();
+        return redirect('/menu');
     }
 }

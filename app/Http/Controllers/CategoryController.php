@@ -24,7 +24,7 @@ class CategoryController extends Controller
             $lang=$request->session()->get('language');
             $category=Category::findorFail($_POST['id']);
             $category->categoryTranslation()->whereLocale($lang)->update(['name'=>$_POST['name'],'slug'=>$_POST['slug']]);
-            return view('category',['categories'=>Category::all()]);
+            return redirect('/category');
     }
     
     public function delete($id)
@@ -32,7 +32,7 @@ class CategoryController extends Controller
         $category=Category::findorFail($id);
         $category->categoryTranslation()->delete();
         $category->delete();
-        return view('category',['categories'=>Category::all()]);
+        return redirect('/category');
     }
 
     public function new()
@@ -48,6 +48,6 @@ class CategoryController extends Controller
         $category=Category::findorFail($_POST['id']);
         $category->categoryTranslation()->create(['locale'=>'en','name'=>$_POST['enname'], 'slug'=>$_POST['enslug']]);
         $category->categoryTranslation()->create(['locale'=>'hr','name'=>$_POST['hrname'], 'slug'=>$_POST['hrslug']]);
-        return view('category',['categories'=>Category::all()]);
+        return redirect('/category');
     }
 }

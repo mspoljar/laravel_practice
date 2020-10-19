@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateIngredientTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('ingredient_translations', function (Blueprint $table) {
             $table->id();
+            $table->string('locale');
+            $table->string('name');
+            $table->foreignId('ingredient_id')->constrained()->onDelete('cascade');
+            $table->unique(['ingredient_id','locale']);
             $table->timestamps();
-            $table->string('path')->nullable();
         });
     }
 
@@ -27,6 +30,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('ingredient_translations');
     }
 }
