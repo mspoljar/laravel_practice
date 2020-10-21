@@ -59,5 +59,14 @@
     "Change tag":"Promjeni tag",
     "Ingredients":"Sastojci",
     "Add new ingredient":"Dodaj novi sastojak",
-    "Change ingredient's name":"Promjeni naziv sastojka"
+    "Change ingredient's name":"Promjeni naziv sastojka",
+    "Ingredient name for english version":"Naziv sastojka za englesku verziju",
+    "Ingredient name for croatian version":"Naziv sastojka za hrvatsku verziju",
+    "Ingredient slug for english version":"Naziv sluga za englesku verziju",
+    "Ingredient slug for croatian version":"Naziv sluga za hrvatsku verziju",
+    "Search":"Traži",
+    "Search by meal name":"Traži po imenu jela",
+    "Search by category":"Traži po kategoriji",
+    "Search by tag":"Traži po tagu",
+    "Search by ingredient":"Traži po sastojku"
 }

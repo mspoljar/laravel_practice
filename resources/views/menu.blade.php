@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @foreach ($meals as $meal)
+<img height="250" src="{{$meal->path}}" alt="">
+<br>
 {{$meal->name ?? optional($meal->translate('hr'))->name}}
 <br>
 <a href="/meal/change/{{$meal->id}}"><button class="btn btn-blue">{{__('Change')}}</button></a>

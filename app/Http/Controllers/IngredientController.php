@@ -28,18 +28,56 @@ class IngredientController extends Controller
         $lang=$request->session()->get('language');
        $validatedData=$request->validate([
            'image'=>'required|image',
-           'name'=>'required'
+           'name'=>'required',
+           'slug'=>'required'
        ]);
        if($request->hasFile('image')){
            $pic=$request->file('image');
            $name=$pic->getClientOriginalName();
            $pic->move('images\ingredients',$name);
-           $ingredient->update(['image'=>$name]);
+           $ingredient->update(['path'=>$name]);
        }
        
-        $ingredient->ingredientTranslation()->whereLocale($lang)->update(['name'=>$request->name]);
+        $ingredient->ingredientTranslation()->whereLocale($lang)->update(['name'=>$request->name,'slug'=>$request->slug]);
         return redirect('/ingredient');
 
         
+    }
+
+    public function new()
+    {
+        $ingredient=new Ingredient;
+        $ingredient->save();
+        $id=$ingredient->id;
+        return view('ingredient.new',['ingredient'=>$ingredient,'id'=>$id]);
+    }
+
+    public function addnew(Request $request)
+    {
+        $ingredient=Ingredient::findorfail($request->id);
+        $validatedData=$request->validate([
+            'image'=>'required|image',
+            'enname'=>'required',
+            'enslug'=>'required',
+            'hrname'=>'required',
+            'hrslug'=>'required'
+        ]);
+        if($request->hasFile('image')){
+            $pic=$request->file('image');
+            $name=$pic->getClientOriginalName();
+            $pic->move('images\ingredients',$name);
+            $ingredient->update(['path'=>$name]);
+        }
+        $ingredient->ingredientTranslation()->create(['locale'=>'en','name'=>$request->enname,'slug'=>$request->enslug]);
+        $ingredient->ingredientTranslation()->update(['locale'=>'hr','name'=>$request->hrname,'slug'=>$request->hrslug]);
+        return redirect('/ingredient');
+    }
+
+    public function delete($id)
+    {
+        $ingredient=Ingredient::findorfail($id);
+        $ingredient->ingredientTranslation()->delete();
+        $ingredient->delete();
+        return redirect('/ingredient');
     }
 }

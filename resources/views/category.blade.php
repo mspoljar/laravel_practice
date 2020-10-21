@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @foreach($categories as $category)
 
-
+<img height="250" src="{{$category->path}}" alt="">
+<br>
 {{$category->name ?? optional($category->translate('hr'))->name}}
 <br>
 <a href="/ingredient/change/{{$category->id}}"><button class="btn btn-blue">{{__('Change')}}</button></a>

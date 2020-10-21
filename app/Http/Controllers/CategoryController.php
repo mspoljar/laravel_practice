@@ -23,6 +23,17 @@ class CategoryController extends Controller
     {
             $lang=$request->session()->get('language');
             $category=Category::findorFail($_POST['id']);
+            $validatedData=$request->validate([
+                'image'=>'required|image',
+                'name'=>'required',
+                'slug'=>'required'
+            ]);
+            if($request->hasFile('image')){
+                $pic=$request->file('image');
+                $name=$pic->getClientOriginalName();
+                $pic->move('images\categories',$name);
+                $ingredient->update(['path'=>$name]);
+            }
             $category->categoryTranslation()->whereLocale($lang)->update(['name'=>$_POST['name'],'slug'=>$_POST['slug']]);
             return redirect('/category');
     }
@@ -43,11 +54,24 @@ class CategoryController extends Controller
         return view('category.new',['category'=>$category,'id'=>$id]);
     }
 
-    public function addnew()
+    public function addnew(Request $request)
     {
-        $category=Category::findorFail($_POST['id']);
-        $category->categoryTranslation()->create(['locale'=>'en','name'=>$_POST['enname'], 'slug'=>$_POST['enslug']]);
-        $category->categoryTranslation()->create(['locale'=>'hr','name'=>$_POST['hrname'], 'slug'=>$_POST['hrslug']]);
+        $category=Category::findorFail($request->id);
+        $validatedData=$request->validate([
+            'image'=>'required|image',
+            'enname'=>'required',
+            'enslug'=>'required',
+            'hrname'=>'required',
+            'hrslug'=>'required'
+        ]);
+        if($request->hasFile('image')){
+            $pic=$request->file('image');
+            $name=$pic->getClientOriginalName();
+            $pic->move('images\categories',$name);
+            $category->update(['path'=>$name]);
+        }
+        $category->categoryTranslation()->create(['locale'=>'en','name'=>$request->enname, 'slug'=>$request->enslug]);
+        $category->categoryTranslation()->create(['locale'=>'hr','name'=>$request->hrname, 'slug'=>$request->hrslug]);
         return redirect('/category');
     }
 }

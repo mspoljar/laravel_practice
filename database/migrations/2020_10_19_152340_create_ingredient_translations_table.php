@@ -17,6 +17,7 @@ class CreateIngredientTranslationsTable extends Migration
             $table->id();
             $table->string('locale');
             $table->string('name');
+            $table->string('slug');
             $table->foreignId('ingredient_id')->constrained()->onDelete('cascade');
             $table->unique(['ingredient_id','locale']);
             $table->timestamps();

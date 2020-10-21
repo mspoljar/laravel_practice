@@ -1,4 +1,4 @@
-<form action="/category/addnew" method="post">
+<form action="/category/addnew" method="post" enctype="multipart/form-data">
     @csrf
 <label>{{__('Category name for english version')}}
 <div>
@@ -24,9 +24,23 @@
             </div>
 </label>
 <br>
+<input type="file" name="image" id="image" accept=".png, .jpg, .jpeg">
+<br>
     <div>
         <input type="submit" class="button expanded" value="{{__('Add category')}}"></input>
       </div>
 <input type="hidden" name="id" 
 value={{$id}}>
 </form>
+@if (count($errors)>0)
+
+
+<div class="alert">
+     <ul>
+         @foreach ($errors->all() as $error)
+        <li>{{$error}}</li>
+         @endforeach
+     </ul>
+</div>
+    
+@endif

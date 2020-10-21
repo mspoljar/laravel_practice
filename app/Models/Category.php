@@ -11,6 +11,7 @@ class Category extends Model implements TranslatableContract
 {
     use HasFactory;
     use Translatable;
+    public $directory='/images/categories/';
 
     public $translatedAttributes=['name','slug'];
 
@@ -25,5 +26,10 @@ class Category extends Model implements TranslatableContract
     public function meals()
     {
         return $this->hasMany('\App\Models\Meal');
+    }
+
+    public function getPathAttribute($value)
+    {
+        return $this->directory . $value;
     }
 }

@@ -52,6 +52,15 @@ Route::group(['middleware'=>'web'],function(){
     Route::get('/ingredient',[IngredientController::class, 'index']);
     Route::get('/ingredient/change/{id}',[IngredientController::class, 'change']);
     Route::post('/ingredient/update',[IngredientController::class,'update']);
+    Route::get('/ingredient/new',[IngredientController::class,'new']);
+    Route::post('/ingredient/addnew',[IngredientController::class, 'addnew']);
+    Route::get('/ingredient/delete/{id}',[IngredientController::class, 'delete']);
+    Route::get('/search',[WelcomeController::class,'search']);
+    Route::get('/search/meal',[WelcomeController::class,'meal']);
+    Route::get('/search/category',[WelcomeController::class,'category']);
+    Route::get('/search/ingredient',[WelcomeController::class,'ingredient']);
+    Route::get('/search/tag',[WelcomeController::class,'tag']);
+    Route::post('/search/searchresults',[WelcomeController::class,'searchresults']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

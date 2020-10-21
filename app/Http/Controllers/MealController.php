@@ -24,6 +24,16 @@ class MealController extends Controller
     public function update(Request $request){
         $lang=$request->session()->get('language');
         $meal=Meal::findorFail($_POST['id']);
+        $validatedData=$request->validate([
+            'image'=>'required|image',
+            'name'=>'required'
+        ]);
+        if($request->hasFile('image')){
+            $pic=$request->file('image');
+            $name=$pic->getClientOriginalName();
+            $pic->move('images\meals',$name);
+            $meal->update(['path'=>$name]);
+        }
         $meal->mealTranslation()->whereLocale($lang)->update(['name'=>$_POST['name']]);
        return redirect('/menu');
     }
@@ -43,11 +53,22 @@ class MealController extends Controller
         return view('meal.new',['meal'=>$meal,'id'=>$id]);
     }
 
-    public function addnew()
+    public function addnew(Request $request)
     {
-        $meal=Meal::findorFail($_POST['id']);
-        $meal->mealTranslation()->create(['locale'=>'en','name'=>$_POST['enname']]);
-        $meal->mealTranslation()->create(['locale'=>'hr','name'=>$_POST['hrname']]);
+        $meal=Meal::findorFail($request->id);
+        $validatedData=$request->validate([
+            'image'=>'required|image',
+            'enname'=>'required',
+            'hrname'=>'required'
+        ]);
+        if($request->hasFile('image')){
+            $pic=$request->file('image');
+            $name=$pic->getClientOriginalName();
+            $pic->move('images\meals',$name);
+            $meal->update(['path'=>$name]);
+        }
+        $meal->mealTranslation()->create(['locale'=>'en','name'=>$request->enname]);
+        $meal->mealTranslation()->create(['locale'=>'hr','name'=>$request->hrname]);
         return redirect('/menu');
     }
 }

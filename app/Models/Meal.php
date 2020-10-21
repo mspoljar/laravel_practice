@@ -11,6 +11,7 @@ class Meal extends Model implements TranslatableContract
 {
     use HasFactory;
     use Translatable;
+    public $directory='/images/meals/';
 
     public $translatedAttributes=[
         'name'
@@ -30,5 +31,10 @@ class Meal extends Model implements TranslatableContract
     public function tags()
     {
         return $this->belongsToMany('App\Models\Tag');
+    }
+
+    public function getPathAttribute($value)
+    {
+        return $this->directory . $value;
     }
 }

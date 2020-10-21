@@ -2,7 +2,8 @@
 
 @foreach($ingredients as $ingredient)
 
-
+<img height="250" src="{{$ingredient->path}}" alt="">
+<br>
 {{$ingredient->name ?? optional($ingredient->translate('hr'))->name}}
 <br>
 <a href="/ingredient/change/{{$ingredient->id}}"><button class="btn btn-blue">{{__('Change')}}</button></a>

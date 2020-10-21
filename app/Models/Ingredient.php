@@ -11,6 +11,7 @@ class Ingredient extends Model
 {
     use HasFactory;
     use Translatable;
+    public $directory='/images/ingredients/';
     protected $fillable=['path'];
 
     public $translatedAttributes=['name'];
@@ -18,6 +19,11 @@ class Ingredient extends Model
     public function ingredientTranslation()
     {
         return $this->hasMany('App\Models\IngredientTranslation');
+    }
+
+    public function getPathAttribute($value)
+    {
+        return $this->directory . $value;
     }
 
 
