@@ -1,14 +1,12 @@
 @extends('layouts.app')
-<form action="/ingredient/addnew" method="post" enctype="multipart/form-data">
+<form action="/ingredient/update" method="post">
     @csrf
 <input type="text" name="name" id="name" value="{{$ingredient->name}}">
 <br>
 <input type="text" name="slug" id="slug" value="{{$ingredient->slug}}">
 <br>
-<input type="file" name="image" id="image" accept=".png, .jpg, .jpeg">
-<br>
 <input type="submit" value="{{__('Change ingredient\'s name')}}">
-<input type="hidden" name="id" value="{{$id}}">
+<input type="hidden" name="id" value="{{$ingredient->id}}">
 </form>
 
 @if (count($errors)>0)

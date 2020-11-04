@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<form action="/ingredient/addnew" method="post" enctype="multipart/form-data">
+<form action="/ingredient/addnew" method="post">
     @csrf
 <label>{{__('Ingredient name for english version')}}
         <div>
@@ -24,8 +24,6 @@
         <input type="text" name="hrslug" id="hrslug">
     </div>
 </label>
-<br>
-<input type="file" name="image" id="image" accept=".png, .jpg, .jpeg">
 <br>
 <input type="submit" value="{{__('Add new ingredient')}}">
 <input type="hidden" name="id" value="{{$ingredient->id}}">

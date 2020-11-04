@@ -1,4 +1,4 @@
-<form action="/category/addnew" method="post" enctype="multipart/form-data">
+<form action="/category/addnew" method="post">
     @csrf
 <label>{{__('Category name for english version')}}
 <div>
@@ -23,8 +23,6 @@
                 <input type="text" name="hrslug" id="hrslug">
             </div>
 </label>
-<br>
-<input type="file" name="image" id="image" accept=".png, .jpg, .jpeg">
 <br>
     <div>
         <input type="submit" class="button expanded" value="{{__('Add category')}}"></input>

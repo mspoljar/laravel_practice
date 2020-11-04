@@ -33,6 +33,11 @@ class Meal extends Model implements TranslatableContract
         return $this->belongsToMany('App\Models\Tag');
     }
 
+    public function ingredients()
+    {
+        return $this->belongsToMany('App\Models\Ingredient');
+    }
+
     public function getPathAttribute($value)
     {
         return $this->directory . $value;

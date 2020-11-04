@@ -57,6 +57,25 @@ class WelcomeController extends Controller
                })->get();
                 return view('search.result',['results'=>$searchresults]);
             break;
+
+            case 1:
+                $searchresults=Meal::whereCategory($request->category)->get();
+                return view('search.result',['results'=>$searchresults]);
+            break;
+
+            case 2:
+                $searchresults=Meal::whereHas('tags',function(Builder $query) use($lang,$request){
+                    $query->where('tag_id', '=', $request->tag);
+                })->get();
+                return view('search.result',['results'=>$searchresults]);
+            break;
+
+            case 3:
+                $searchresults=Meal::whereHas('ingredients',function(Builder $query) use($lang,$request){
+                    $query->where('ingredient_id', '=', $request->ingredient);
+                })->get();
+                return view('search.result',['results'=>$searchresults]);
+            break;
         }
 
     }

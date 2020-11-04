@@ -14,6 +14,8 @@ class Tag extends Model implements TranslatableContract
     
     public $translatedAttributes=['name','slug'];
 
+    protected $fillable=['meal_id'];
+
     public function tagTranslation()
     {
         return $this->hasMany('App\Models\Tagtranslation');

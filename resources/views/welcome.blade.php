@@ -4,5 +4,5 @@
     <a href="/category"><h1>{{__('Categories')}}</h1></a>
     <a href="/tag"><h1>{{__('Tags')}}</h1></a>
     <a href="/ingredient"><h1>{{__('Ingredients')}}</h1></a>
-    <a href="/search">{{__('Search')}}</a>
+    <a href="/search"><h1>{{__('Search')}}</h1></a>
 </div>

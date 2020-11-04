@@ -4,7 +4,6 @@
 <input type="text" name="name" id="name" value={{$meal->name}}>
 </label>
 <br>
-<input type="file" name="image" id="image" accept=".png, .jpg, .jpeg">
 <div>
     <input type="submit" class="button expanded" value="{{__('Change meal')}}"></input>
   </div>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Meal;
+use App\Models\Tag;
+use App\Models\Ingredient;
+use App\Models\Category;
 
 class MealController extends Controller
 {
@@ -25,15 +28,8 @@ class MealController extends Controller
         $lang=$request->session()->get('language');
         $meal=Meal::findorFail($_POST['id']);
         $validatedData=$request->validate([
-            'image'=>'required|image',
             'name'=>'required'
         ]);
-        if($request->hasFile('image')){
-            $pic=$request->file('image');
-            $name=$pic->getClientOriginalName();
-            $pic->move('images\meals',$name);
-            $meal->update(['path'=>$name]);
-        }
         $meal->mealTranslation()->whereLocale($lang)->update(['name'=>$_POST['name']]);
        return redirect('/menu');
     }
@@ -50,25 +46,44 @@ class MealController extends Controller
         $meal=new Meal;
         $meal->save();
         $id=$meal->id;
-        return view('meal.new',['meal'=>$meal,'id'=>$id]);
+        return view('meal.new',[
+            'meal'=>$meal,
+            'id'=>$id,
+            'ingredients'=>Ingredient::all(),
+            'tags'=>Tag::all(),
+            'categories'=>Category::all()
+            ]);
     }
 
     public function addnew(Request $request)
     {
         $meal=Meal::findorFail($request->id);
-        $validatedData=$request->validate([
-            'image'=>'required|image',
+       $validatedData=$request->validate([
             'enname'=>'required',
-            'hrname'=>'required'
+            'hrname'=>'required',
+            'ingredients'=>'required|min:1',
+            'tags'=>'required|min:1',
+            'category'=>'nullable|max:1'
         ]);
-        if($request->hasFile('image')){
-            $pic=$request->file('image');
-            $name=$pic->getClientOriginalName();
-            $pic->move('images\meals',$name);
-            $meal->update(['path'=>$name]);
-        }
         $meal->mealTranslation()->create(['locale'=>'en','name'=>$request->enname]);
         $meal->mealTranslation()->create(['locale'=>'hr','name'=>$request->hrname]);
+        if($request->category=null)
+        {
+        exit;
+        }
+        else{
+            $meal->update(['category'=>$request->category]);
+        }
+        foreach($request->ingredients as $ingredient =>$value)
+        {
+            $meal->ingredients()->attach($ingredient);
+        }
+        foreach($request->tags as $tag=>$value)
+        {
+            $meal->tags()->attach($ingredient);
+        }
+        
         return redirect('/menu');
+        
     }
 }

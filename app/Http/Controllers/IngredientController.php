@@ -11,9 +11,10 @@ class IngredientController extends Controller
 
     public function index()
     {
-        $ingredients = Ingredient::translatedIn(app()->getLocale())
-            ->paginate(5);
-        return view('ingredients',compact('ingredients'));
+       $ingredients = Ingredient::translatedIn(app()->getLocale())
+       ->paginate(5); 
+       return view('ingredients',['ingredients'=>$ingredients]);
+    
     }
 
     public function change($id)
@@ -27,16 +28,9 @@ class IngredientController extends Controller
         $ingredient=Ingredient::findorFail($request->id);
         $lang=$request->session()->get('language');
        $validatedData=$request->validate([
-           'image'=>'required|image',
            'name'=>'required',
            'slug'=>'required'
        ]);
-       if($request->hasFile('image')){
-           $pic=$request->file('image');
-           $name=$pic->getClientOriginalName();
-           $pic->move('images\ingredients',$name);
-           $ingredient->update(['path'=>$name]);
-       }
        
         $ingredient->ingredientTranslation()->whereLocale($lang)->update(['name'=>$request->name,'slug'=>$request->slug]);
         return redirect('/ingredient');
@@ -56,21 +50,15 @@ class IngredientController extends Controller
     {
         $ingredient=Ingredient::findorfail($request->id);
         $validatedData=$request->validate([
-            'image'=>'required|image',
             'enname'=>'required',
             'enslug'=>'required',
             'hrname'=>'required',
             'hrslug'=>'required'
         ]);
-        if($request->hasFile('image')){
-            $pic=$request->file('image');
-            $name=$pic->getClientOriginalName();
-            $pic->move('images\ingredients',$name);
-            $ingredient->update(['path'=>$name]);
-        }
         $ingredient->ingredientTranslation()->create(['locale'=>'en','name'=>$request->enname,'slug'=>$request->enslug]);
-        $ingredient->ingredientTranslation()->update(['locale'=>'hr','name'=>$request->hrname,'slug'=>$request->hrslug]);
+        $ingredient->ingredientTranslation()->create(['locale'=>'hr','name'=>$request->hrname,'slug'=>$request->hrslug]);
         return redirect('/ingredient');
+        
     }
 
     public function delete($id)
