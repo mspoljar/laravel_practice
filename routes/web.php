@@ -39,6 +39,7 @@ Route::group(['middleware'=>'web'],function(){
     Route::get('/meal/delete/{id}',[MealController::class, 'delete']);
     Route::get('/menu/new', [MealController::class, 'new']);
     Route::post('/menu/addnew', [MealController::class, 'addnew']);
+    Route::get('/show/meal/{id}', [MealController::class, 'show']);
     Route::get('/category/change/{id}',[CategoryController::class, 'change']);
     Route::post('/category/update',[CategoryController::class, 'update']);
     Route::get('/category/delete/{id}',[CategoryController::class, 'delete']);

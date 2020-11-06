@@ -86,4 +86,10 @@ class MealController extends Controller
         return redirect('/menu');
         
     }
+
+    public function show($id)
+    {
+        $meal=Meal::findorFail($id);
+        return view('meal.show',compact('meal',));
+    }
 }

@@ -14,6 +14,6 @@ class IngredientTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Ingredient::factory()->has(\App\Models\IngredientTranslation::factory()->count(2))->create();
     }
 }

@@ -15,7 +15,6 @@ class Ingredient extends Model implements TranslatableContract
     
 
     public $translatedAttributes=['name','slug'];
-    protected $fillable=['path'];
     public function ingredientTranslation()
     {
         return $this->hasMany('App\Models\IngredientTranslation');
@@ -26,5 +25,9 @@ class Ingredient extends Model implements TranslatableContract
         return $this->directory . $value;
     }
 
+    public function meal()
+    {
+        return $this->belongsToMany('App\Models\Meal');
+    }
 
 }

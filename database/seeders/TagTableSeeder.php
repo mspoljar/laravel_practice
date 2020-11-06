@@ -14,6 +14,6 @@ class TagTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Tag::factory()->has(\App\Models\TagTranslation::factory()->count(2))->create();
     }
 }

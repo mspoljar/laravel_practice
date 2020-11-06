@@ -14,8 +14,7 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker=Faker::create('App\Category');
 
-        DB::table('categories')->insert();
+        \App\Models\Category::factory()->has(\App\Models\CategoryTranslation::factory()->count(2))->create();
     }
 }

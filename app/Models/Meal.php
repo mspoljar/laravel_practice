@@ -16,7 +16,7 @@ class Meal extends Model implements TranslatableContract
     public $translatedAttributes=[
         'name'
     ];
-    protected $fillable=['path'];
+    
 
     public function mealTranslation()
     {
