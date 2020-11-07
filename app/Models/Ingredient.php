@@ -11,18 +11,12 @@ class Ingredient extends Model implements TranslatableContract
 {
     use HasFactory;
     use Translatable;
-    public $directory='/images/ingredients/';
     
 
     public $translatedAttributes=['name','slug'];
     public function ingredientTranslation()
     {
         return $this->hasMany('App\Models\IngredientTranslation');
-    }
-
-    public function getPathAttribute($value)
-    {
-        return $this->directory . $value;
     }
 
     public function meal()

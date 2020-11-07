@@ -7,6 +7,7 @@ use App\Models\Meal;
 use App\Models\Tag;
 use App\Models\Ingredient;
 use App\Models\Category;
+use Illuminate\Support\Collection;
 
 class MealController extends Controller
 {
@@ -21,14 +22,22 @@ class MealController extends Controller
     public function change($id){
 
         $meal=Meal::findorFail($id);
-        return view('meal.change',['meal'=>$meal]);
+        return view('meal.change',[
+            'meal'=>$meal,
+            'ingredients'=>Ingredient::all(),
+            'tags'=>Tag::all(),
+            'categories'=>Category::all()
+            ]);
     }
 
     public function update(Request $request){
         $lang=$request->session()->get('language');
         $meal=Meal::findorFail($_POST['id']);
         $validatedData=$request->validate([
-            'name'=>'required'
+            'name'=>'required',
+            'ingredients'=>'required|min:1',
+            'tags'=>'required|min:1',
+            'category'=>'nullable|max:1'
         ]);
         $meal->mealTranslation()->whereLocale($lang)->update(['name'=>$_POST['name']]);
        return redirect('/menu');
@@ -90,6 +99,8 @@ class MealController extends Controller
     public function show($id)
     {
         $meal=Meal::findorFail($id);
-        return view('meal.show',compact('meal',));
+        $ingredients=Meal::findorFail($id)->ingredients->toArray();
+        $tags=Meal::findorFail($id)->tags->toArray();
+        return view('meal.show',compact('meal','ingredients','tags'));
     }
 }
