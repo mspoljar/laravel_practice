@@ -23,11 +23,16 @@ class TagTranslationFactory extends Factory
     public function definition()
     {
         $count=Tag::count();
+        do{
         return [
-            'locale'=>$this->faker->unique()->randomElement(['en','hr']),
+            'locale'=>$this->faker->randomElement(['en','hr']),
             'name'=>$this->faker->name,
             'slug'=>$this->faker->slug,
-            'tag_id'=>$this->faker->numberBetween(1,$count)
+            'tag_id'=>$this->faker->numberBetween(1,$count),
         ];
+        if(TagTranslation::count()===2){
+            $i++;
+        }
+        }while($i=0);
     }
 }

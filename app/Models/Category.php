@@ -11,8 +11,6 @@ class Category extends Model implements TranslatableContract
 {
     use HasFactory;
     use Translatable;
-    public $directory='/images/categories/';
-
     public $translatedAttributes=['name','slug'];
 
 

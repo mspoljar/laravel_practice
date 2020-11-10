@@ -16,7 +16,7 @@ class CreateMealsTable extends Migration
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('category')->nullable();
+            $table->foreignId('category_id')->nullable();
         });
     }
 

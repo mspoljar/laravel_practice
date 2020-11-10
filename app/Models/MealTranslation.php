@@ -9,6 +9,6 @@ class MealTranslation extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'name','locale'
+        'name','locale','description'
     ];
 }

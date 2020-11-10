@@ -23,10 +23,16 @@ class MealTranslationFactory extends Factory
     public function definition()
     {
         $count=Meal::count();
+       do{
         return [
-            'locale'=>$this->faker->unique()->randomElement(['en','hr']),
+            'locale'=>$this->faker->randomElement(['en','hr']),
             'name'=>$this->faker->name,
+            'description'=>$this->faker->text,
             'meal_id'=>$this->faker->numberBetween(1,$count)
         ];
+        if(MealTranslation::count()===2){
+            $i++;
+            }
+        }while($i=0);
     }
 }

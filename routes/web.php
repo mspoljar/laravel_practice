@@ -57,11 +57,11 @@ Route::group(['middleware'=>'web'],function(){
     Route::post('/ingredient/addnew',[IngredientController::class, 'addnew']);
     Route::get('/ingredient/delete/{id}',[IngredientController::class, 'delete']);
     Route::get('/search',[WelcomeController::class,'search']);
-    Route::get('/search/meal',[WelcomeController::class,'meal']);
     Route::get('/search/category',[WelcomeController::class,'category']);
-    Route::get('/search/ingredient',[WelcomeController::class,'ingredient']);
     Route::get('/search/tag',[WelcomeController::class,'tag']);
     Route::post('/search/searchresults',[WelcomeController::class,'searchresults']);
+    Route::get('/test',[WelcomeController::class,'test']);
+    Route::get('/searchcat',[WelcomeController::class,'categoryresult']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

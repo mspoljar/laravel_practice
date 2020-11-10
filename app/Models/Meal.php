@@ -13,7 +13,7 @@ class Meal extends Model implements TranslatableContract
     use Translatable;
 
     public $translatedAttributes=[
-        'name'
+        'name','description'
     ];
     
 
@@ -24,7 +24,7 @@ class Meal extends Model implements TranslatableContract
 
     public function category()
     {
-        return $this->hasOne('App\Models\Category');
+        return $this->belongsTo('App\Models\Category');
     }
 
     public function tags()

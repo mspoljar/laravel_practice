@@ -71,5 +71,9 @@
     "Search by ingredient":"Traži po sastojku",
     "Choose the ingredients":"Izaberite sastojke",
     "Choose the tags":"Izaberite tagove",
-    "Choose the category":"Izaberite kategoriju"
+    "Choose the category":"Izaberite kategoriju",
+    "Results per page":"Rezultata po stranici",
+    "Choose the language":"Izaberite jezik",
+    "Page number":"Broj stranice",
+    "Request options":"Opcije za request"
 }

@@ -27,7 +27,21 @@ class MealFactory extends Factory
         $count=Category::count();
         return [
             'created_at'=>now(),
-            'category'=>$this->faker->numberBetween(1,$count)
+            'category_id'=>$this->faker->numberBetween(1,$count)
         ];
     }
+
+    public function configure()
+    {
+        return $this->afterMaking(function ($meal) {
+            //
+        })->afterCreating(function ($meal) {
+            for($i=0;$i<rand(1,5);$i++){
+                $meal->ingredients()->attach(rand(1,count(Ingredient::all())));
+            }
+            for($j=0;$j<rand(1,3);$j++){
+                $meal->tags()->attach(rand(1,count(Tag::all())));
+            }
+        });
+    } 
 }

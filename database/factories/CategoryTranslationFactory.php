@@ -21,14 +21,20 @@ class CategoryTranslationFactory extends Factory
      *
      * @return array
      */
+   
     public function definition()
     {
         $count=Category::count();
+        do{
         return [
-            'locale'=>$this->faker->unique()->randomElement(['en','hr']),
+            'locale'=>$this->faker->randomElement(['en','hr']),
             'name'=>$this->faker->name,
             'slug'=>$this->faker->slug,
-            'category_id'=>$this->faker->numberBetween(1,$count)
+            'category_id'=>$this->faker->numberBetween(1,$count),
         ];
+        if(CategoryTranslation::count()===2){
+            $i++;
+        }
+        }while($i=0);
     }
 }

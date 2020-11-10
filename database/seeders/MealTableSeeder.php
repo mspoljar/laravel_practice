@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use App\Models\Meal;
+use App\Models\MealTranslation;
 
 class MealTableSeeder extends Seeder
 {
@@ -14,8 +16,7 @@ class MealTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Meal::factory()->hasAttached(\App\Models\Tag::factory()->count(rand(1,3)))
-                                   ->hasAttached(\App\Models\Ingredient::factory()->count(rand(1,5)))
-                                   ->has(\App\Models\MealTranslation::factory()->count(2))->create();
+        Meal::factory()->count(10)->create();
+    
     }
 }

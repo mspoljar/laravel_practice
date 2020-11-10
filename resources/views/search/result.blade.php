@@ -1,6 +1,4 @@
-@extends('layouts.app')
 
-@foreach ($results as $result)
-    {{$result->name}}
-    <br>
-@endforeach
+<pre>
+    {{json_encode($result,JSON_PRETTY_PRINT)}}
+</pre>

@@ -19,6 +19,7 @@ class CreateMealTranslationsTable extends Migration
             $table->foreignId('meal_id')->constrained()->onDelete('cascade');
             $table->unique(['meal_id','locale']);
             $table->string('name');
+            $table->text('description');
             $table->timestamps();
         });
     }

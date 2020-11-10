@@ -21,7 +21,7 @@ class Tag extends Model implements TranslatableContract
         return $this->hasMany('App\Models\Tagtranslation');
     }
 
-    public function meal()
+    public function meals()
     {
         return $this->belongsToMany('App\Models\Meal');
     }

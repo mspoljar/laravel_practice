@@ -14,7 +14,8 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-
-        \App\Models\Category::factory()->has(\App\Models\CategoryTranslation::factory()->count(2))->create();
+        
+        \App\Models\Category::factory()->count(10)->create();
+        
     }
 }
