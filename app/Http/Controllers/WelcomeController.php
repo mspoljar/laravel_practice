@@ -15,7 +15,8 @@ class WelcomeController extends Controller
     //
     public function index()
     {
-        return view('welcome');
+        $categories=Category::all();
+        return view('welcome',compact('categories'));
     }
 
     public function search()
@@ -48,78 +49,109 @@ class WelcomeController extends Controller
 
     public function categoryresult(Request $request)
     {
-    
         $data=[];
-        $tempdata=[];
         $tags=[];
         $ingredients=[];
-        $mealtags=Meal::where('category_id','=',$request->category)->get();
-        foreach($mealtags as $meal)
-        {
-            foreach($meal->tags as $tag)
-            {
-             foreach($tag->translations as $t){
-                if($t->locale==$request->lang){
-                    $tags[]=[
-                    'id'=>$t->id,
-                    'name'=>$t->name,
-                    'slug'=>$t->slug, 
-                     ];}
-             }
-            }
+        $pagarray=[];
+        $i=1;
+        $Primarymeals=Meal::where('category_id','=',$request->category)->paginate($request->per_page);
+        $category=Category::findorfail($request->category)->first()->toArray();
+        
+        if(isset($request->with)){
+            $f=$request->with;
+        }else{
+            $f=[];
         };
-        $mealingredients=Meal::where('category_id','=',$request->category)->get();
-       foreach($mealingredients as $meal)
-        {
-            foreach($meal->ingredients as $ingredient)
-            {
-                foreach($ingredient->translations as $i)
-                {
-                    if($i->locale==$request->lang)
-                    {
-                    $ingredients[]=[
-                        'id'=>$i->id,
-                        'name'=>$i->name,
-                        'slug'=>$i->slug, 
-                         ];
+     
+            foreach($Primarymeals->items() as $meal){
+                foreach($meal->translations as $m){
+                    if($m->locale==$request->lang){
+                        $ar=[
+                            'id'=>$m->id,
+                            'title'=>$m->name,
+                            'description'=>$m->description,
+                        ];
                     }
                 }
-            }
-        };
-        $mealcount=Meal::where('category_id','=',$request->category)->get();
-        $category=Category::findorfail($request->category)->first()->toArray();
-       $meal=Meal::where('category_id','=',$request->category)->paginate($request->per_page)->toArray();
-       //for($i=0,$i<count($meal['data']['translation']))
-       $meta=[
-           'currentPage'=>$request->page,
-           'totalItems'=>count($mealcount),
-           'itemsPerPage'=>$request->per_page,
-           'totalPage'=>ceil(count($mealcount)/$request->per_page)
-       ];
-       foreach($mealcount as $meal){
-           foreach($meal->translations as $m)
-           {
-                if($m->locale==$request->lang)
-                {
+
+                if(in_array('tags',$f)){
+                    $tar=[];
+                    foreach($meal->tags as $tag){
+                        foreach($tag->translations as $t){
+                            if($t->locale==$request->lang){
+                                $tar[]=array(
+                                'id'=>$t->id,
+                                'name'=>$t->name,
+                                'slug'=>$t->slug, 
+                                );}
+                        }
+                    }
+                }
+
+                if(in_array('ingredients',$f)){
+                    $iar=[];
+                    foreach($meal->ingredients as $ingredient){
+                        foreach($ingredient->translations as $i)
+                        {
+                            if($i->locale==$request->lang){
+                                $iar[]=[
+                                    'id'=>$i->id,
+                                    'name'=>$i->name,
+                                    'slug'=>$i->slug, 
+                                        ];
+                                } 
+                        }
+                    }
+                };
+                if(in_array('category',$f)){
                     $data[]=[
-                        'id'=>$m->id,
-                        'title'=>$m->name,
-                        'description'=>$m->description,
+                        'id'=>$ar['id'],
+                        'title'=>$ar['title'],
+                        'description'=>$ar['description'],
                         'category'=>[
                             'id'=>$category['id'],
                             'name'=>$category['name'],
                             'slug'=>$category['slug'],
                         ],
-                        'tags'=>$tags,
-                        'ingredients'=>$ingredients,
+                    ];
+                }else{
+                    $data[]=[
+                        'id'=>$ar['id'],
+                        'title'=>$ar['title'],
+                        'description'=>$ar['description'],
+                    ]; 
+                }
+                if(in_array('tags',$f)){
+                    $data[]=[
+                        'tags'=>$tar,
                     ];
                 }
-           }
-       }
-       $result=[
+                if(in_array('ingredients',$f)){
+                    $data[]=[
+                        'ingredients'=>$iar,
+                    ];
+                }
+            }
+
+        $meta=[
+            'currentPage'=>$request->page,
+            'totalItems'=>$Primarymeals->total(),
+            'itemsPerPage'=>$request->per_page,
+            'totalPage'=>ceil($Primarymeals->total()/$request->per_page),
+        ];
+        
+
+        $links=[
+            'prev'=>$Primarymeals->previousPageUrl(),
+            'next'=>$Primarymeals->nextPageUrl(),
+            'self'=>$Primarymeals->url($request->page),
+        ];
+        
+        $result=[
            'meta'=>$meta,
            'data'=>$data,
-       ];
+           'links'=>$links,
+        ];
         return view('search.result',compact('result'));
     }
 
